@@ -59,7 +59,9 @@ public class SurveyUnitDetailDto {
 				.filter(s -> BussinessRules.stateCanBeSeenByInterviewerBussinessRules(s.getType()))
 				.map(s -> new StateDto(s))
 				.collect(Collectors.toList());
-		this.identification = new IdentificationDto(surveyUnit.getIdentification());
+		if (surveyUnit.getIdentification() != null) {
+			this.identification = new IdentificationDto(surveyUnit.getIdentification());
+		}
 	}
 
 	/**

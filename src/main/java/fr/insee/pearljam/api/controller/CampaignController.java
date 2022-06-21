@@ -29,6 +29,7 @@ import fr.insee.pearljam.api.dto.campaign.CampaignDto;
 import fr.insee.pearljam.api.dto.campaign.OngoingDto;
 import fr.insee.pearljam.api.dto.count.CountDto;
 import fr.insee.pearljam.api.dto.interviewer.InterviewerDto;
+import fr.insee.pearljam.api.dto.referent.ReferentDto;
 import fr.insee.pearljam.api.dto.state.StateCountCampaignDto;
 import fr.insee.pearljam.api.dto.visibility.VisibilityContextDto;
 import fr.insee.pearljam.api.dto.visibility.VisibilityDto;
@@ -368,4 +369,22 @@ public class CampaignController {
 		LOGGER.info("{} checked if campaign {} is on-going : {}", callerId, id, campaignOngoing.isOngoing());
 		return new ResponseEntity<>(campaignOngoing, HttpStatus.OK);
 	}
+
+	// API for REFERENT entity
+
+	@ApiOperation(value = "Get referents of targeted campaign")
+	@GetMapping(path = "/campaigns/{id}/referents")
+	public ResponseEntity<List<ReferentDto>> getReferents(HttpServletRequest request,
+			@PathVariable(value = "id") String id) {
+		String callerId = utilsService.getUserId(request);
+		LOGGER.info("{} try to GET {} referents", callerId, id);
+		if (!campaignService.findById(id).isPresent()) {
+			LOGGER.warn("Campaign {} is not present, can't get referents", id);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return null;
+	}
+
+
 }

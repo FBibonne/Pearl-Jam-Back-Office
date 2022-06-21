@@ -57,7 +57,7 @@ public class InseeAddress extends Address {
 	 * The elevator presence of INSEE address
 	 */
 	@Column
-	private boolean elevator = false;
+	private Boolean elevator;
 
 	/**
 	 * The building info of INSEE address
@@ -85,7 +85,7 @@ public class InseeAddress extends Address {
 	 * The city priority district info of INSEE address
 	 */
 	@Column(name = "city_priority_district")
-	private boolean cityPriorityDistrict = false;
+	private Boolean cityPriorityDistrict;
 
 	/**
 	 * Defaut constructor for the entity
@@ -245,12 +245,8 @@ public class InseeAddress extends Address {
 		return this.elevator;
 	}
 
-	public boolean getElevator() {
-		return this.elevator;
-	}
-
-	public void setElevator(boolean elevator) {
-		this.elevator = elevator;
+	public void setElevator(Boolean elevator) {
+		this.elevator = elevator != null ? elevator : false;
 	}
 
 	public String getBuilding() {
@@ -289,12 +285,8 @@ public class InseeAddress extends Address {
 		return this.cityPriorityDistrict;
 	}
 
-	public boolean getCityPriorityDistrict() {
-		return this.cityPriorityDistrict;
-	}
-
-	public void setCityPriorityDistrict(boolean cityPriorityDistrict) {
-		this.cityPriorityDistrict = cityPriorityDistrict;
+	public void setCityPriorityDistrict(Boolean cityPriorityDistrict) {
+		this.cityPriorityDistrict = cityPriorityDistrict != null ? cityPriorityDistrict : false;
 	}
 
 }

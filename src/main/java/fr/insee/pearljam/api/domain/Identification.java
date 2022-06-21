@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 import fr.insee.pearljam.api.domain.IdentificationQuestions.AccessQuestionValue;
 import fr.insee.pearljam.api.domain.IdentificationQuestions.CategoryQuestionValue;
 import fr.insee.pearljam.api.domain.IdentificationQuestions.IdentificationQuestionValue;
@@ -78,12 +75,8 @@ public class Identification implements Serializable {
         return this.move;
     }
 
-    public Boolean getMove() {
-        return this.move;
-    }
-
     public void setMove(Boolean move) {
-        this.move = move;
+        this.move = move != null ? move : false;
     }
 
     public IdentificationQuestionValue getIdentification() {

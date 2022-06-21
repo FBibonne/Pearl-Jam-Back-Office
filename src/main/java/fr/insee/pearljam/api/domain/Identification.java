@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import fr.insee.pearljam.api.domain.IdentificationQuestions.AccessQuestionValue;
 import fr.insee.pearljam.api.domain.IdentificationQuestions.CategoryQuestionValue;
 import fr.insee.pearljam.api.domain.IdentificationQuestions.IdentificationQuestionValue;
@@ -32,7 +35,7 @@ public class Identification implements Serializable {
     private Long id;
 
     @Column
-    private Boolean move;
+    private Boolean move = false;
 
     @Column
     @Enumerated(EnumType.STRING)

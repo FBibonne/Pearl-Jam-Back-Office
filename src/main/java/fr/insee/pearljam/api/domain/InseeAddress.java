@@ -57,7 +57,7 @@ public class InseeAddress extends Address {
 	 * The elevator presence of INSEE address
 	 */
 	@Column
-	private boolean elevator;
+	private boolean elevator = false;
 
 	/**
 	 * The building info of INSEE address
@@ -85,7 +85,7 @@ public class InseeAddress extends Address {
 	 * The city priority district info of INSEE address
 	 */
 	@Column(name = "city_priority_district")
-	private boolean cityPriorityDistrict;
+	private boolean cityPriorityDistrict = false;
 
 	/**
 	 * Defaut constructor for the entity

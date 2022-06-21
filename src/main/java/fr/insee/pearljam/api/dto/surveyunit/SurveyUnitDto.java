@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import fr.insee.pearljam.api.domain.ContactAttemptConfiguration;
+import fr.insee.pearljam.api.domain.ContactOutcomeConfiguration;
+import fr.insee.pearljam.api.domain.IdentificationConfiguration;
 import fr.insee.pearljam.api.domain.SurveyUnit;
 import fr.insee.pearljam.api.dto.address.AddressDto;
 import fr.insee.pearljam.api.dto.campaign.CampaignDto;
@@ -60,6 +63,10 @@ public class SurveyUnitDto {
 	 */
 	private Long endDate;
 
+	private IdentificationConfiguration identificationConfiguration;
+	private ContactOutcomeConfiguration contactOutcomeConfiguration;
+	private ContactAttemptConfiguration contactAttemptConfiguration;
+
 	private List<PersonDto> persons;
 
 	private AddressDto address;
@@ -68,17 +75,20 @@ public SurveyUnitDto() {
 	}
 	
 	public SurveyUnitDto(Optional<SurveyUnit> su, VisibilityDto visibility, Boolean extended) {
-		if(su.isPresent()) {
+		if (su.isPresent()) {
 			this.id = su.get().getId();
 			this.campaign = su.get().getCampaign().getId();
 			this.campaignLabel = su.get().getCampaign().getLabel();
-			this.managementStartDate=visibility.getManagementStartDate();
-			this.interviewerStartDate=visibility.getInterviewerStartDate();
-			this.identificationPhaseStartDate=visibility.getIdentificationPhaseStartDate();
-			this.collectionStartDate=visibility.getCollectionStartDate();
-			this.collectionEndDate=visibility.getCollectionEndDate();
-			this.endDate=visibility.getEndDate();
-			if(Boolean.TRUE.equals(extended)) {
+			this.managementStartDate = visibility.getManagementStartDate();
+			this.interviewerStartDate = visibility.getInterviewerStartDate();
+			this.identificationPhaseStartDate = visibility.getIdentificationPhaseStartDate();
+			this.collectionStartDate = visibility.getCollectionStartDate();
+			this.collectionEndDate = visibility.getCollectionEndDate();
+			this.endDate = visibility.getEndDate();
+			this.identificationConfiguration = su.get().getCampaign().getIdentificationConfiguration();
+			this.contactAttemptConfiguration = su.get().getCampaign().getContactAttemptConfiguration();
+			this.contactOutcomeConfiguration = su.get().getCampaign().getContactOutcomeConfiguration();
+			if (Boolean.TRUE.equals(extended)) {
 				this.persons = su.get().getPersons().stream()
 						.map(person -> new PersonDto(person))
 						.collect(Collectors.toList());
@@ -88,15 +98,18 @@ public SurveyUnitDto() {
 	}
 	
 	public SurveyUnitDto(String idSurveyUnit, CampaignDto campaign, VisibilityDto visibility) {
-		this.id=idSurveyUnit;
-		this.campaign=campaign.getId();
-		this.campaignLabel=campaign.getLabel();
-		this.managementStartDate=visibility.getManagementStartDate();
-		this.interviewerStartDate=visibility.getInterviewerStartDate();
-		this.identificationPhaseStartDate=visibility.getIdentificationPhaseStartDate();
-		this.collectionStartDate=visibility.getCollectionStartDate();
-		this.collectionEndDate=visibility.getCollectionEndDate();
-		this.endDate=visibility.getEndDate();
+		this.id = idSurveyUnit;
+		this.campaign = campaign.getId();
+		this.campaignLabel = campaign.getLabel();
+		this.managementStartDate = visibility.getManagementStartDate();
+		this.interviewerStartDate = visibility.getInterviewerStartDate();
+		this.identificationPhaseStartDate = visibility.getIdentificationPhaseStartDate();
+		this.collectionStartDate = visibility.getCollectionStartDate();
+		this.collectionEndDate = visibility.getCollectionEndDate();
+		this.endDate = visibility.getEndDate();
+		this.identificationConfiguration = campaign.getIdentificationConfiguration();
+		this.contactAttemptConfiguration = campaign.getContactAttemptConfiguration();
+		this.contactOutcomeConfiguration = campaign.getContactOutcomeConfiguration();
 	}
 	/**
 	 * @return the id
@@ -228,6 +241,30 @@ public SurveyUnitDto() {
 	 */
 	public void setAddress(AddressDto address) {
 		this.address = address;
+	}
+
+	public IdentificationConfiguration getIdentificationConfiguration() {
+		return this.identificationConfiguration;
+	}
+
+	public void setIdentificationConfiguration(IdentificationConfiguration identificationConfiguration) {
+		this.identificationConfiguration = identificationConfiguration;
+	}
+
+	public ContactOutcomeConfiguration getContactOutcomeConfiguration() {
+		return this.contactOutcomeConfiguration;
+	}
+
+	public void setContactOutcomeConfiguration(ContactOutcomeConfiguration contactOutcomeConfiguration) {
+		this.contactOutcomeConfiguration = contactOutcomeConfiguration;
+	}
+
+	public ContactAttemptConfiguration getContactAttemptConfiguration() {
+		return this.contactAttemptConfiguration;
+	}
+
+	public void setContactAttemptConfiguration(ContactAttemptConfiguration contactAttemptConfiguration) {
+		this.contactAttemptConfiguration = contactAttemptConfiguration;
 	}
 	
 }

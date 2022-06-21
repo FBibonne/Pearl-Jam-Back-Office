@@ -1,20 +1,25 @@
 package fr.insee.pearljam.api.dto.identification;
 
 import fr.insee.pearljam.api.domain.Identification;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.AccessQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.CategoryQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.IdentificationQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.OccupantQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.SituationQuestionValue;
 
 public class IdentificationDto {
 
     private Boolean move;
 
-    private String identification;
+    private IdentificationQuestionValue identification;
 
-    private String access;
+    private AccessQuestionValue access;
 
-    private String situation;
+    private SituationQuestionValue situation;
 
-    private String category;
+    private CategoryQuestionValue category;
 
-    private String occupant;
+    private OccupantQuestionValue occupant;
 
     public IdentificationDto() {
     }
@@ -40,43 +45,43 @@ public class IdentificationDto {
         this.move = move;
     }
 
-    public String getIdentification() {
+    public IdentificationQuestionValue getIdentification() {
         return this.identification;
     }
 
-    public void setIdentification(String identification) {
+    public void setIdentification(IdentificationQuestionValue identification) {
         this.identification = identification;
     }
 
-    public String getAccess() {
+    public AccessQuestionValue getAccess() {
         return this.access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(AccessQuestionValue access) {
         this.access = access;
     }
 
-    public String getSituation() {
+    public SituationQuestionValue getSituation() {
         return this.situation;
     }
 
-    public void setSituation(String situation) {
+    public void setSituation(SituationQuestionValue situation) {
         this.situation = situation;
     }
 
-    public String getCategory() {
+    public CategoryQuestionValue getCategory() {
         return this.category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryQuestionValue category) {
         this.category = category;
     }
 
-    public String getOccupant() {
+    public OccupantQuestionValue getOccupant() {
         return this.occupant;
     }
 
-    public void setOccupant(String occupant) {
+    public void setOccupant(OccupantQuestionValue occupant) {
         this.occupant = occupant;
     }
 

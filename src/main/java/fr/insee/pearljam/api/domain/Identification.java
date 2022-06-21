@@ -4,11 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import fr.insee.pearljam.api.domain.IdentificationQuestions.AccessQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.CategoryQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.IdentificationQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.OccupantQuestionValue;
+import fr.insee.pearljam.api.domain.IdentificationQuestions.SituationQuestionValue;
 
 @Entity
 @Table
@@ -27,19 +35,24 @@ public class Identification implements Serializable {
     private Boolean move;
 
     @Column
-    private String identification;
+    @Enumerated(EnumType.STRING)
+    private IdentificationQuestionValue identification;
 
     @Column
-    private String access;
+    @Enumerated(EnumType.STRING)
+    private AccessQuestionValue access;
 
     @Column
-    private String situation;
+    @Enumerated(EnumType.STRING)
+    private SituationQuestionValue situation;
 
     @Column
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private CategoryQuestionValue category;
 
     @Column
-    private String occupant;
+    @Enumerated(EnumType.STRING)
+    private OccupantQuestionValue occupant;
 
     /**
      * The SurveyUnit associated to Identification
@@ -70,43 +83,43 @@ public class Identification implements Serializable {
         this.move = move;
     }
 
-    public String getIdentification() {
+    public IdentificationQuestionValue getIdentification() {
         return this.identification;
     }
 
-    public void setIdentification(String identification) {
+    public void setIdentification(IdentificationQuestionValue identification) {
         this.identification = identification;
     }
 
-    public String getAccess() {
+    public AccessQuestionValue getAccess() {
         return this.access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(AccessQuestionValue access) {
         this.access = access;
     }
 
-    public String getSituation() {
+    public SituationQuestionValue getSituation() {
         return this.situation;
     }
 
-    public void setSituation(String situation) {
+    public void setSituation(SituationQuestionValue situation) {
         this.situation = situation;
     }
 
-    public String getCategory() {
+    public CategoryQuestionValue getCategory() {
         return this.category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryQuestionValue category) {
         this.category = category;
     }
 
-    public String getOccupant() {
+    public OccupantQuestionValue getOccupant() {
         return this.occupant;
     }
 
-    public void setOccupant(String occupant) {
+    public void setOccupant(OccupantQuestionValue occupant) {
         this.occupant = occupant;
     }
 

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
@@ -34,15 +33,17 @@ public class ApiApplication extends SpringBootServletInitializer{
     private String profile;
 
 	public static void main(String[] args) {
-		System.out.println(System.getProperty("catalina.base"));
-		SpringApplication app = new SpringApplication(ApiApplication.class);
-		app.addListeners((ApplicationEnvironmentPreparedEvent event)->propertiesLog(event.getEnvironment()));
-		app.run(args);
+		configureApplicationBuilder(new SpringApplicationBuilder()).build().run(args);
 	}
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(ApiApplication.class);
+		return configureApplicationBuilder(application);
+	}
+
+	private static SpringApplicationBuilder configureApplicationBuilder(SpringApplicationBuilder springApplicationBuilder){
+		return springApplicationBuilder.sources(ApiApplication.class)
+				.listeners((ApplicationEnvironmentPreparedEvent event)->propertiesLog(event.getEnvironment()));
 	}
 
 

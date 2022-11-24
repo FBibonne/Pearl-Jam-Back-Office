@@ -9,8 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.stereotype.Controller;
@@ -36,7 +40,16 @@ public class MessageController {
 
 	@Autowired
 	MessageService messageService;
-	
+
+	@Autowired
+	JavaMailSender javaMailSender;
+
+	@Value("${fr.insee.pearljam.mail.service.recipients.list}")
+	private String recipient;
+
+	@Value("${fr.insee.pearljam.mail.service.sender}")
+	private String sender;
+
 	@Autowired
 	BiFunction<String, String, HttpStatus> sendMail;
 
@@ -169,7 +182,21 @@ public class MessageController {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		LOGGER.info("User {} send a mail", userId);
-		HttpStatus returnCode = sendMail.apply(mail.getContent(), mail.getSubject());
+		//HttpStatus returnCode = sendMail.apply(mail.getContent(), mail.getSubject());
+		HttpStatus returnCode;
+		var simpleMailMessage=new SimpleMailMessage();
+		simpleMailMessage.setSubject(mail.getSubject());
+		simpleMailMessage.setText(mail.getContent());
+		simpleMailMessage.setTo(recipient);
+		simpleMailMessage.setFrom(sender);
+		try{
+			javaMailSender.send(simpleMailMessage);
+			returnCode=HttpStatus.OK;
+		}catch (MailException e) {
+			LOGGER.error("Error while sending mail", e);
+			returnCode = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
 		return new ResponseEntity<>(returnCode);
 	}
 }
